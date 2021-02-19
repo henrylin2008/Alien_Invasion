@@ -12,11 +12,14 @@ class AlienInvasion:
         pygame.init()
         self.settings = Settings()
 
-        self.screen = pygame.display.set_mode(
-            (self.settings.screen_width, self.settings.screen_height))
+        self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)    # figure out the full window size
+        self.settings.screen_width = self.screen.get_rect().width   # update screen width to full screen
+        self.settings.screen_height = self.screen.get_rect().height  # update screen height to full screen
+        # self.screen = pygame.display.set_mode(
+        #     (self.settings.screen_width, self.settings.screen_height))    # smaller window
         pygame.display.set_caption("Alien Invasion")
 
-        self.ship = Ship(self)
+        self.ship = Ship(self)  # ship instance
 
     def run_game(self):
         """Start the main loop for the game."""
