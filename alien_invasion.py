@@ -28,14 +28,8 @@ class AlienInvasion:
         while True:
             self._check_events()
             self.ship.update()
-            self.bullets.update()       # update each sprite in the group
+            self._update_bullets()
             self._update_screen()
-
-            # Get rid of bullets that have disappeared (top of the screen)
-            for bullet in self.bullets.copy():
-                if bullet.rect.bottom <= 0:     # check if bullet disappeared off the top of the screen
-                    self.bullets.remove(bullet)     # remove it if it's disappeared from the top of the screen
-            # print(len(self.bullets))      # total number of bullets on the screen
 
     def _check_events(self):
         """Respond to keypresses and mouse events."""
@@ -71,6 +65,17 @@ class AlienInvasion:
         if len(self.bullets) < self.settings.bullets_allowed:   # check how many bullets exist (length < 3)
             new_bullet = Bullet(self)
             self.bullets.add(new_bullet)    # add new_bullet instance in to the group
+
+    def _update_bullets(self):
+        """Update position of bullets and get rid of old bullets"""
+        # update bullet positions
+        self.bullets.update()  # update each sprite in the group
+
+        # Get rid of bullets that have disappeared (top of the screen)
+        for bullet in self.bullets.copy():
+            if bullet.rect.bottom <= 0:  # check if bullet disappeared off the top of the screen
+                self.bullets.remove(bullet)  # remove it if it's disappeared from the top of the screen
+        # print(len(self.bullets))      # total number of bullets on the screen
 
     def _update_screen(self):
         """Update images on the screen, and flip to the new screen."""
