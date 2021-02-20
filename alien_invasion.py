@@ -106,7 +106,7 @@ class AlienInvasion:
         # Look for alien-ship collisions.
         if pygame.sprite.spritecollideany(self.ship, self.aliens):
             # spritecollideany stops looping through the group when collision detected; return None if no collision
-            self._self_hit()  # first collision
+            self._ship_hit()  # first collision
 
     def _ship_hit(self):
         """Respond to the ship being hit by an alien."""
