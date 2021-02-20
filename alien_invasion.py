@@ -33,6 +33,7 @@ class AlienInvasion:
             self._check_events()
             self.ship.update()
             self._update_bullets()
+            self._update_aliens()   # update position of all aliens
             self._update_screen()
 
     def _check_events(self):
@@ -80,6 +81,10 @@ class AlienInvasion:
             if bullet.rect.bottom <= 0:  # check if bullet disappeared off the top of the screen
                 self.bullets.remove(bullet)  # remove it if it's disappeared from the top of the screen
         # print(len(self.bullets))      # total number of bullets on the screen
+
+    def _update_aliens(self):
+        """Update the positions of all aliens in the fleet."""
+        self.aliens.update()
 
     def _create_fleet(self):
         """Create the fleet of aliens."""
