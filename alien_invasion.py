@@ -108,6 +108,9 @@ class AlienInvasion:
             # spritecollideany stops looping through the group when collision detected; return None if no collision
             self._ship_hit()  # first collision
 
+        # Look for aliens hitting the bottom of the screen.
+        self._check_aliens_bottom()
+
     def _ship_hit(self):
         """Respond to the ship being hit by an alien."""
 
@@ -124,6 +127,15 @@ class AlienInvasion:
 
         # Pause.
         sleep(0.5)
+
+    def _check_aliens_bottom(self):
+        """Check if any aliens have reached the bottom of the screen."""
+        screen_rect = self.screen.get_rect()
+        for alien in self.aliens.sprites():
+            if alien.rect.bottom >= screen_rect.bottom:     # if an alien reaches to the bottom of the screen
+                # Treat this the same as if the ship got hit.
+                self._ship_hit()
+                break
 
     def _create_fleet(self):
         """Create the fleet of aliens."""
