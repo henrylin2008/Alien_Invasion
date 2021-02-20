@@ -20,12 +20,14 @@ class AlienInvasion:
         pygame.display.set_caption("Alien Invasion")
 
         self.ship = Ship(self)  # ship instance
+        self.bullets = pygame.sprite.Group()    # store bullets; sprite.group behaves like a list
 
     def run_game(self):
         """Start the main loop for the game."""
         while True:
             self._check_events()
             self.ship.update()
+            self.bullets.update()       # update each sprite in the group
             self._update_screen()
 
     def _check_events(self):
