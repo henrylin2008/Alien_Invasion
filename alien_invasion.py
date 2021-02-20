@@ -13,11 +13,11 @@ class AlienInvasion:
         pygame.init()
         self.settings = Settings()
 
-        self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)    # figure out the full window size
-        self.settings.screen_width = self.screen.get_rect().width   # update screen width to full screen
-        self.settings.screen_height = self.screen.get_rect().height  # update screen height to full screen
-        # self.screen = pygame.display.set_mode(
-        #     (self.settings.screen_width, self.settings.screen_height))    # smaller window
+        # self.screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN)    # figure out the full window size
+        # self.settings.screen_width = self.screen.get_rect().width   # update screen width to full screen
+        # self.settings.screen_height = self.screen.get_rect().height  # update screen height to full screen
+        self.screen = pygame.display.set_mode(
+            (self.settings.screen_width, self.settings.screen_height))    # smaller window
         pygame.display.set_caption("Alien Invasion")
 
         self.ship = Ship(self)  # ship instance
@@ -30,6 +30,12 @@ class AlienInvasion:
             self.ship.update()
             self.bullets.update()       # update each sprite in the group
             self._update_screen()
+
+            # Get rid of bullets that have disappeared (top of the screen)
+            for bullet in self.bullets.copy():
+                if bullet.rect.bottom <= 0:     # check if bullet disappeared off the top of the screen
+                    self.bullets.remove(bullet)     # remove it if it's disappeared from the top of the screen
+            # print(len(self.bullets))      # total number of bullets on the screen
 
     def _check_events(self):
         """Respond to keypresses and mouse events."""
