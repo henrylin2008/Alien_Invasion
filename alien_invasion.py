@@ -132,6 +132,7 @@ class AlienInvasion:
             for aliens in collisions.values():  # award points for each alien hit
                 self.stats.score += self.settings.alien_points * len(aliens) # add alien's value to the score, +50/alien
             self.scoreboard.prep_score()    # create a new image for the updated score
+            self.scoreboard.check_high_score()  # check current high score
 
         if not self.aliens:     # check whether the aliens group is empty
             # Destroy existing bullets and create a new fleet.
